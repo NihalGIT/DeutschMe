@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import beans.DB_con;
 import beans.recup;
 
 /**
@@ -21,12 +22,11 @@ import beans.recup;
  */
 @WebServlet("/SignUp")
 public class SignUp extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 	Connection conne;
-   	Boolean etat=true;
-	String user="postgres";
-	String url="jdbc:postgresql:DeutschMe";
-	String pwd="root";
+	DB_con inf=new DB_con();
+	String user=inf.getUser();
+	String url=inf.getUrl();
+	String pwd=inf.getPwd();
 	
     public SignUp() {
         super();
@@ -42,9 +42,16 @@ public class SignUp extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		    response.setContentType("text/html");
+			recup User=new recup();
 			try {
 			   	    Class.forName("org.postgresql.Driver");
 					conne = DriverManager.getConnection (url,user,pwd);
+					User.setNom(request.getParameter("lastname"));
+					User.setPrenom(request.getParameter("firstname"));
+					User.setPhone(request.getParameter("telephone"));
+					User.setEmail(request.getParameter("email"));
+					User.setLevel(request.getParameter("niveau"));
+					request.setAttribute("user", User);
 					if(request.getParameter("password").equals(request.getParameter("Confpassword"))) {
 						PreparedStatement ps=conne.prepareStatement("insert into Personne values (?,?,?,?,?,?);");
 						ps.setObject(1,request.getParameter("firstname"));
@@ -60,28 +67,22 @@ public class SignUp extends HttpServlet {
 						JDialog dialog = optionPane.createDialog("Congrats!");
 						dialog.setAlwaysOnTop(true); 
 						dialog.setVisible(true);
+						this.getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward( request, response );
 					}else {
-						recup User=new recup();
 						JOptionPane optionPane = new JOptionPane("les mots de passe saisis sont differents !",JOptionPane.ERROR_MESSAGE);
 						JDialog dialog = optionPane.createDialog("ERREUR!");
 						dialog.setAlwaysOnTop(true); 
 						dialog.setVisible(true);
-						User.setNom(request.getParameter("lastname"));
-						User.setPrenom(request.getParameter("firstname"));
-						User.setPhone(request.getParameter("telephone"));
-						User.setEmail(request.getParameter("email"));
-						User.setLevel(request.getParameter("niveau"));
-						request.setAttribute("user", User);
-						this.getServletContext().getRequestDispatcher("/SignUp").forward( request, response );
+						this.getServletContext().getRequestDispatcher("/WEB-INF/SignUp.jsp").forward( request, response );
 					}
 				        
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					JOptionPane optionPane = new JOptionPane("Un compte existe déjà avec le numéro de téléphone / l'adresse email saisis  , veuillez-vous connecter !",JOptionPane.WARNING_MESSAGE);
+					JOptionPane optionPane = new JOptionPane("Un compte existe déjà avec le numéro de téléphone / l'adresse email saisis  , "
+							+ "veuillez-vous connecter !",JOptionPane.WARNING_MESSAGE);
 					JDialog dialog = optionPane.createDialog("Warning!");
 					dialog.setAlwaysOnTop(true); 
 					dialog.setVisible(true); 
-					etat=false;
 				 } catch (ClassNotFoundException e1) {
 				   	// TODO Auto-generated catch block
 				   	   e1.printStackTrace();

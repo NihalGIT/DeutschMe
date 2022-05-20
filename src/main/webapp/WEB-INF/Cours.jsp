@@ -38,8 +38,8 @@
 		  border-radius: 10px;
 		  background-color: rgb(250,255,249);
 		  padding: 20px;
-		  width: 200px;
-		  height:200px;
+		  width: 120px;
+		  height:170px;
 		  text-align:center;
 		}
 		#hala{
@@ -102,8 +102,8 @@
 		  justify-content:start;
 		  flex-wrap: wrap;
 		  flex-basis: 100%;
-		  grid-template-columns: 150px 350px 350px 400px;
-		  grid-template-rows: 150px 150px 150px;  
+		  grid-template-columns: 90px 230px 230px 230px 230px 400px ;
+		  grid-template-rows: 200px 200px 150px;  
 		}
       </style>
    </head>
@@ -122,11 +122,10 @@
               <div style="margin-top:14px;margin-bottom:11px;">
                 <ul>
                   <li class="dropdown">
-                    <a id="hala" href="javascript:void(0)" class="dropbtn" onclick="myFunction()">Nihal Salih</a>
+                    <a id="hala" href="javascript:void(0)" class="dropbtn" onclick="myFunction()"><%=(String) request.getAttribute("np") %></a>
                     <div class="dropdown-content" id="myDropdown">
-                     <a href="cours">Courses</a>
                      <a href="exos">Exercises</a>
-                     <a href="tests">Tests</a>
+                     <a href="tests">Test</a>
                       <a href="index.html">Logout</a>
                     </div>
                   </li>
@@ -159,8 +158,12 @@
             </div>
 </header>
 <div class="flex">
-  <div class="container1"><embed src=http://monsite.fr/monfichier.pdf width=800 height=500 type='application/pdf'/></div>  
+  <div class="container"></div>  
+  <div class="container1"></div>  
   <div class="container1"></div>      
+  <div class="container1"></div>  
+  <div class="container1"></div>      
+  <div class="container1"></div>            
   </div>
  </body>
  </html>

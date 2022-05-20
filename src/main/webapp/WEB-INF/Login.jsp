@@ -42,9 +42,9 @@
         <section>
           <div class="box">
           <div class="container">
-            <form  Method="POST" Action="con" enctype="application/x-www-form-urlencoded">
+            <form  Method="POST" Action="Login" enctype="application/x-www-form-urlencoded">
               <label for="email">Email</label>
-              <input type="email" id="mail" name="mail" placeholder="Enter your mail address" required autofocus value= "${ user.mail}"><br/>
+              <input type="email" id="mail" name="mail" placeholder="Enter your mail address" required autofocus value= "${ user.email}"><br/>
               <label for="password">Password</label>
               <input type="password" id="password" name="password" placeholder="Enter your password.." required=""><br>
               <input type="submit" value="Login">

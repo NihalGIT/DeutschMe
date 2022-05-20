@@ -122,11 +122,11 @@
               <div style="margin-top:14px;margin-bottom:11px;">
                 <ul>
                   <li class="dropdown">
-                    <a id="hala" href="javascript:void(0)" class="dropbtn" onclick="myFunction()">Nihal Salih</a>
+                    <a id="hala" href="javascript:void(0)" class="dropbtn" onclick="myFunction()"><%=(String) request.getAttribute("np")%></a>
                     <div class="dropdown-content" id="myDropdown">
                      <a href="cours">Courses</a>
                      <a href="exos">Exercises</a>
-                     <a href="tests">Tests</a>
+                     <a href="tests">Test</a>
                       <a href="index.html">Logout</a>
                     </div>
                   </li>
