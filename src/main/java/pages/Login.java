@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import beans.DB_con;
+import beans.recup;
 
 /**
  * Servlet implementation class Login
@@ -38,16 +40,23 @@ public class Login extends HttpServlet {
 		this.getServletContext().getRequestDispatcher( "/WEB-INF/Login.jsp").forward( request, response );
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletContext context = this.getServletContext();
 		try {
 	   	    Class.forName("org.postgresql.Driver");
 			conne = DriverManager.getConnection (url,user,pwd);
+			context.setAttribute("mail", request.getParameter("mail"));
 		    PreparedStatement ps=conne.prepareStatement("select * from personne where email = ?");
 			ps.setObject(1,request.getParameter("mail")) ;
 			ResultSet rs = ps.executeQuery() ;
 			if (rs.next()) {
+				        recup sd=new recup();
 				        String nom=(String)rs.getObject("lastname");
 				        String prenom=(String)rs.getObject("firstname");
+				        String niveau=(String)rs.getObject("niveau");
+				        sd.setLevel(niveau);
 				        String np= prenom+" "+nom;
+				        context.setAttribute("level",sd.getLevel());
+				        context.setAttribute("np", np);
 				        request.setAttribute("np", np);
 						String password=(String)rs.getObject("password");
 						if (password.equals(request.getParameter("password"))) {

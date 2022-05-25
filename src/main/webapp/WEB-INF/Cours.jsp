@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import ="java.io.*" %>
+<%@ page import ="beans.workspace" %>
+<%@ page import ="pages.Cours" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-US">
    <head>
@@ -7,6 +10,10 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>DeutschMe</title>
       <style>
+      a{
+      text-decoration: none;
+      color: black;
+      }
       #tt{
       margin-top:30px;
       background-color:#005881;
@@ -25,18 +32,17 @@
 		  width:3%;
 		  background-color: #002633;
 		  margin-top:20px;
-		  height:495px;
+		  height:700px;
 		  margin-left:-8px;
 		  text-align:center;
 		  padding: 20px;
 		}
 		.container1 {
-		  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 		  margin-top:150px;
 		  margin-left:80px;
 		  border-left:10px;
 		  border-radius: 10px;
-		  background-color: rgb(250,255,249);
+		  background-color: WHITE;
 		  padding: 20px;
 		  width: 120px;
 		  height:170px;
@@ -102,8 +108,8 @@
 		  justify-content:start;
 		  flex-wrap: wrap;
 		  flex-basis: 100%;
-		  grid-template-columns: 90px 230px 230px 230px 230px 400px ;
-		  grid-template-rows: 200px 200px 150px;  
+		  grid-template-columns: 90px 230px 230px 230px 230px 400px;
+		  grid-template-rows: 200px 200px 200px ;  
 		}
       </style>
    </head>
@@ -124,8 +130,8 @@
                   <li class="dropdown">
                     <a id="hala" href="javascript:void(0)" class="dropbtn" onclick="myFunction()"><%=(String) request.getAttribute("np") %></a>
                     <div class="dropdown-content" id="myDropdown">
-                     <a href="exos">Exercises</a>
-                     <a href="tests">Test</a>
+                     <a href="MyExos">Exercises</a>
+                     <a href="MyTest">Test</a>
                       <a href="index.html">Logout</a>
                     </div>
                   </li>
@@ -157,13 +163,40 @@
               </div>
             </div>
 </header>
+
 <div class="flex">
-  <div class="container"></div>  
-  <div class="container1"></div>  
-  <div class="container1"></div>      
-  <div class="container1"></div>  
-  <div class="container1"></div>      
-  <div class="container1"></div>            
+  <div class="container"></div> 
+  <h2 style="margin-top:70px;">PDF Courses :</h2>
+  <%
+      workspace path=new workspace();
+      String Level=(String)request.getAttribute("Level");
+	  File dir  = new File(path.getPath()+"AllemandCenter/src/main/webapp/Niveau/"+ Level +"/Cours/pdf");
+	  File[] liste = dir.listFiles();
+	  for(File item : liste){
+	    if(item.isFile())
+	    { %>
+	  <div class="container1"><a href="Niveau/<%=Level%>/Cours/pdf/<%=item.getName() %>"><img src="img/pdf.png"  alt=""  
+	  style="width:120px;height:120px;filter: brightness (50%);"><br><br><%=item.getName() %></a></div>  
+	  <%
+	    }
+	  }
+	  %>
+	  <br>
+	  <div></div>
+	  <div></div>
+    <h2 style="margin-top:200px;margin-left:90px;">MP3/MP4 Courses:</h2>
+    <%
+	  File dire  = new File(path.getPath()+"AllemandCenter/src/main/webapp/Niveau/"+Level+"/Cours/mp4/");
+	  File[] list = dire.listFiles();
+	  for(File item : list){
+	    if(item.getName().endsWith(".mp4") || item.getName().endsWith(".mp3") )
+	    { %>
+	 <div class="container1" style="margin-top:290px;margin-left:300px;"><a href="Niveau/<%=Level%>/Cours/audios/<%=item.getName() %>">
+	 <img src="img/mp4.png"  alt=""  style="width:120px;height:120px;filter: brightness (50%);"><br><br><%=item.getName() %></a></div>  	    
+	  <%
+	    }
+	  }
+	  %>
   </div>
  </body>
  </html>

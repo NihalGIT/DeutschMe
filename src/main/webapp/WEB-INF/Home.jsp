@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import ="pages.Home" %>
+<%@ page import ="pages.Update" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-US">
    <head>
@@ -124,9 +126,6 @@
                   <li class="dropdown">
                     <a id="hala" href="javascript:void(0)" class="dropbtn" onclick="myFunction()"><%=(String) request.getAttribute("np")%></a>
                     <div class="dropdown-content" id="myDropdown">
-                     <a href="cours">Courses</a>
-                     <a href="exos">Exercises</a>
-                     <a href="tests">Test</a>
                       <a href="index.html">Logout</a>
                     </div>
                   </li>
@@ -161,13 +160,13 @@
 <div class="flex">
   <div class="container"></div>  
   <div class="container1"><a href="#" ><img src="img/cours.png"  title="courses"  style="width:120px;height:120px;filter: brightness(50%);"></a>
-  <br><button id="tt" onclick="window.location.href='#'">Courses</button>
+  <br><button id="tt" onclick="window.location.href='MyCourses'">Courses</button>
   </div>  
   <div class="container1"><a href="#" ><img src="img/book.png"  title="Exercises"  style="height:110px;margin-top:10px;margin-left:-5px;filter: brightness(50%);"></a>
-  <br><button id="tt" onclick="window.location.href='#'">Exercises</button>
+  <br><button id="tt" onclick="window.location.href='MyExos'">Exercises</button>
   </div>      
   <div class="container1"><a href="#" ><img src="img/test.png"  title="Test"  style="height:110px;margin-top:10px;margin-left:18px;filter: brightness(50%);"></a>
-  <br><button id="tt" onclick="window.location.href='#'">Test</button>
+  <br><button id="tt" onclick="window.location.href='MyTest'">Test</button>
   </div> 
   </div>
  </body>

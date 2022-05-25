@@ -1,6 +1,8 @@
 package pages;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +29,11 @@ public class Home extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		ServletContext context = this.getServletContext();
+		String nq = (String)context.getAttribute("np");
+		String level=(String)context.getAttribute("level");
+		request.setAttribute("np", nq);
+		request.setAttribute("level", level);
 		this.getServletContext().getRequestDispatcher( "/WEB-INF/Home.jsp").forward( request, response );
 	}
 

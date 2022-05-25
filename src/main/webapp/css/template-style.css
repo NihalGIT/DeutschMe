@@ -17,7 +17,6 @@ input[type=text],input[type=email],input[type=tel],input[type=password],textarea
 input[type=radio]{
   width: 8%;
   color:black;
-  box-sizing: content-box;
   resize: horizontal;
 }
 input[type=submit] ,  input[type=button] {
